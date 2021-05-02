@@ -1,11 +1,11 @@
 
-import React, { useState,  useEffect } from 'react'
-import { useHistory } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
 import { connect } from "react-redux";
-import { GoogleMap, useLoadScript, Marker, InfoWindow, Autocomplete } from '@react-google-maps/api';
+import { GoogleMap, useLoadScript, Marker, InfoWindow } from '@react-google-maps/api';
 import { getNearbySearch, getPlaceDetail, togglePlaceDetail } from '../../stores/actions/searchActionCreator'
 import { mouseEnter } from '../../stores/actions/mapActionCreator'
 import { getUserLocation } from '../../stores/actions/authActionCreator'
+const key = process.env.REACT_APP_GOOGLE_API_KEY
 
 
 
@@ -15,12 +15,6 @@ const mapContainerStyle = {
     height: '100vh'
 }
 
-const center = {
-    lat: 40.7834345,
-    lng: -73.9662495
-}
-
-
 
 function FavMap(props) {
     // console.log('props location in FavMap', props)
@@ -28,14 +22,8 @@ function FavMap(props) {
     /******************************************************************************************************************************
     *                   Declare vairable
     ******************************************************************************************************************************/
-
-    let history = useHistory()
-    // const [center, setCenter] = useState(null)
-    // const [marker, setMaker] = useState(null)
-    let [directions, setDirections] = useState("");
     const [selected, setSelected] = useState(null)
     const [userAddress, setUserAddress] = useState(null)
-    const [showPlaceDetailInfoWindow, setShowPlaceDetailInfoWindow] = useState(true)
     const [centerLocation, setCenterLocation] = useState({
         lat: 40.7834345,
         lng: -73.9662495
@@ -45,7 +33,7 @@ function FavMap(props) {
     *                    Functions
     ******************************************************************************************************************************/
     const { isLoaded, loadError } = useLoadScript({
-        googleMapsApiKey: 'AIzaSyALhFgmCW6bVy6JdBOF_ccNtu1NgrfRxiw',
+        googleMapsApiKey: key,
         libraries,
     });
 
@@ -56,89 +44,68 @@ function FavMap(props) {
     }, [props.userLocation])
 
 
-
     const handleShowPlaceDetail = (id) => {
-        console.log('get place id', id)
         props.togglePlaceDetail(true)
         props.getPlaceDetail(id)
         props.mouseEnter(null)
-        // history.push('/')
     }
 
-
-    // const onMapCLick = useCallback((event) => {
+    // const clickMap = (event) => {
     //     const newLocation = `${event.latLng.lat()},${event.latLng.lng()}`
-    //     let keyword = getKeyword()
-    //     // setCenterLocation({lat: event.latLng.lat(), lng: event.latLng.lng()})
-    //     // props.getNearbySearch(props.keyword, newLocation)
-    //     console.log('newLocation', newLocation)
-    //     console.log('keyword', keyword)
-    //     // console.log('props.favList', props.favList)
-    // }, [])
-
-    const clickMap = (event) => {
-        const newLocation = `${event.latLng.lat()},${event.latLng.lng()}`
-        props.getNearbySearch(props.keyword, newLocation)
-    }
-
+    //     props.getNearbySearch(props.keyword, newLocation)
+    // }
 
     const handleShowInfoWindow = (id) => {
         props.togglePlaceDetail(true)
         props.getPlaceDetail(id)
-        
     }
-
 
     const changeMarkerIcon = (item) => {
         if (props.hoveredPlace && item.place_id === props.hoveredPlace.place_id) { return 'selected-marker.svg' }
-        // if (props.showPlaceDetail && props.placeDetail && item.place_id === props.placeDetail.place_id) { return 'selected-marker.svg' }
         if (props.showFavPlaceDetail && props.placeDetail && item.place_id === props.placeDetail.place_id) { return 'selected-marker.svg' }
         return null
     }
 
-
-    /******************************************************************************************************************************
-    *                     Check Isloaded
-    ******************************************************************************************************************************/
+/******************************************************************************************************************************
+*                     Check Isloaded
+******************************************************************************************************************************/
 
     if (loadError) return 'Error Loading Map'
     if (!isLoaded) return 'Loading Maps'
 
-    /******************************************************************************************************************************
-    *                     Return Map
-    ******************************************************************************************************************************/
+/******************************************************************************************************************************
+*                     Return Map
+******************************************************************************************************************************/
     return (
         <div className="FavMap">
             <GoogleMap
                 mapContainerStyle={mapContainerStyle}
                 zoom={13}
                 center={centerLocation}
-                onClick={clickMap}
+                // onClick={clickMap}
             >
 
-                /******************************************************************************************************************************
-                *                     Show user marker and InfoWindow if clicked
-                ******************************************************************************************************************************/
+/******************************************************************************************************************************
+*                     Show user marker and InfoWindow if clicked
+******************************************************************************************************************************/
                 {props.userLocation ?
                     <>
                         <Marker
                             icon='current-location-marker.png'
-                            // icon='favicon.ico'
                             position={centerLocation}
                             onClick={() => {
                                 setUserAddress(props.userLocation)
                                 setSelected(null)
-                                // setShowPlaceDetailInfoWindow(false)
                             }}
                         />
-                        {/* {userAddress ?
+                        {userAddress ?
                             <InfoWindow
                                 position={centerLocation}
                                 onCloseClick={() => { setUserAddress(null) }}
                             ><div>
                                     <p>My Location:</p>
                                     <p>{`${userAddress.city}  ${userAddress.state}, ${userAddress.postal} ${userAddress.country_code}`}</p>
-                                </div></InfoWindow> : null} */}
+                                </div></InfoWindow> : null}
                     </> : null
                 }
 
@@ -157,7 +124,6 @@ function FavMap(props) {
                         onClick={() => {
                             setSelected(item)
                             setUserAddress(false)
-                            // setShowPlaceDetailInfoWindow(false)
                         }}
                     />
                 )}
@@ -189,7 +155,6 @@ const mapStateToProps = (state) => {
         hoveredPlace: state.mapReducer.hoveredPlace,
         userLocation: state.authReducer.userLocation,
         keyword: state.searchReducer.keyword,
-        userLatLng: state.authReducer.userLatLng
     }
 }
 export default connect(mapStateToProps, { getNearbySearch, getPlaceDetail, togglePlaceDetail, getUserLocation, mouseEnter })(FavMap)
