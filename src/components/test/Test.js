@@ -24,7 +24,7 @@ const useStyles = makeStyles({
 const Test = (props) => {
     const classes = useStyles()
 
-    console.log('props in login', props)
+    // console.log('props in login', props)
     let emailRef = useRef()
     let passwordRef = useRef()
     let [email, setEmail] = useState('')
@@ -51,49 +51,31 @@ const Test = (props) => {
     //=================================================================================
 
 
-    // //  old code that work
-    // const handleLogin = async (event) => {
-    //     event.preventDefault()
-    //     if (emailRef.current.value === '' || passwordRef.current.value === '') {
-    //         alert("must fill in both email and password")
-    //     }
-    //     await props.login(emailRef.current.value, passwordRef.current.value)
+    // const handleSubmit = (e) => {
+    //     e.preventDefault()
 
-    //     let userToken = await localStorage.getItem('userToken')
-
-    //     if (userToken) {
-    //         setIsAuth(true)
-    //         history.push('/')
-    //         props.handleErrorMessage(null)
-
-    //     } else {
-    //         setIsAuth(false)
-    //     }
     // }
-    const handleLogin = (e) => {
-        console.log('is this run at all')
+    const [title, setTitle] = useState('')
+    const [details, setDetails] = useState('')
+    const [titleError, setTitleError] = useState(false)
+    const [detailsError, setDetailsError] = useState(false)
+
+    const handleSubmit = (e) => {
         e.preventDefault()
-        console.log(email, password)
-        // if (email === '' || password === '') {
-        //     alert("must fill in both email and password")
-        // }
+        setTitleError(false)
+        setDetailsError(false)
 
-        if (email && password) {
-            console.log(email, password)
+        if (title == '') {
+            setTitleError(true)
         }
-        // await props.login(emailRef.current.value, passwordRef.current.value)
-
-        // let userToken = await localStorage.getItem('userToken')
-
-        // if (userToken) {
-        //     setIsAuth(true)
-        //     history.push('/')
-        //     props.handleErrorMessage(null)
-
-        // } else {
-        //     setIsAuth(false)
-        // }
+        if (details == '') {
+            setDetailsError(true)
+        }
+        if (title && details) {
+            console.log(title, details)
+        }
     }
+
 
     return (
         <ThemeProvider theme={theme}>
@@ -105,10 +87,7 @@ const Test = (props) => {
                         <div>This is LOGIN page</div>
                         <p>props.errorMessage: {props.errorMessage}</p>
 
-                        < form noValidate autoComplete='off' onSubmit={handleLogin} >
-                            {/* < form  > */}
-                            {/* <input ref={emailRef} placeholder='email' type='email'></input>
-                                <input ref={passwordRef} placeholder='password' type='password'></input> */}
+                        {/* < form noValidate autoComplete='off' onSubmit={handleSubmit} >
                             <TextField
                                 onChange={(e) => setEmail(e.target.value)}
                                 type='email'
@@ -129,7 +108,39 @@ const Test = (props) => {
 
                             <Button color='primary' variant='contained'>LOGIN</Button>
 
-                        </form >
+                        </form > */}
+                        <form noValidate autoComplete="off" onSubmit={handleSubmit}>
+                            <TextField className={classes.field}
+                                type='email'
+                                onChange={(e) => setTitle(e.target.value)}
+                                label="Note Title"
+                                variant="outlined"
+                                color="secondary"
+                                fullWidth
+                                required
+                                error={titleError}
+                            />
+                            <TextField className={classes.field}
+                                type="password"
+                                autoComplete="current-password"
+                                onChange={(e) => setDetails(e.target.value)}
+                                label="password"
+                                variant="outlined"
+                                color="secondary"
+                                fullWidth
+                                required
+                                error={detailsError}
+                            />
+
+                            <Button
+                                type="submit"
+                                color="secondary"
+                                variant="contained"
+                            // endIcon={<KeyboardArrowRightIcon />}
+                            >
+                                Submit
+        </Button>
+                        </form>
                         <Link to='/register'>Don't Have An Account? Register Here</Link>
 
                     </div>}
