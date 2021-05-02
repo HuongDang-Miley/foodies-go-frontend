@@ -5,10 +5,9 @@ import HomeSidebar from '../homeSidebar/HomeSidebar'
 import HomeMap from '../maps/HomeMap'
 import PlaceDetail from '../placeDetail/PlaceDetail'
 import Menu from '../menu/Menu'
-import { togglePlaceDetail } from '../../stores/actions/searchActionCreator'
 
 function HomePage(props) {
-    let [showPlaceDetail, setShowPlaceDetail] = useState(false)
+    // let [showPlaceDetail, setShowPlaceDetail] = useState(false)
     return (
         <div>
             <div className='map-wrapper'>
@@ -18,11 +17,11 @@ function HomePage(props) {
                 {props.showPlaceDetail
                 // {showPlaceDetail
                     ? <PlaceDetail
-                        showPlaceDetail={showPlaceDetail}
-                        setShowPlaceDetail={setShowPlaceDetail}
+                        // showPlaceDetail={showPlaceDetail}
+                        // setShowPlaceDetail={setShowPlaceDetail}
                     />
                     : <HomeSidebar
-                        setShowPlaceDetail={setShowPlaceDetail}
+                        // setShowPlaceDetail={setShowPlaceDetail}
                     />
                 }
 
@@ -41,4 +40,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, { togglePlaceDetail })(HomePage)
+export default connect(mapStateToProps)(HomePage)

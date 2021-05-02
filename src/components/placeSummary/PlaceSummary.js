@@ -10,7 +10,6 @@ function PlaceSummary(props) {
 
     const handleShowPlaceDetail = (id) => {
         props.togglePlaceDetail(true)
-        // props.setShowPlaceDetail(true)
         props.getPlaceDetail(id)
         props.mouseEnter(null)
     }

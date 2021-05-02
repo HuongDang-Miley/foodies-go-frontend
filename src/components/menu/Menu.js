@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from "react-redux";
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { getUserLocation } from '../../stores/actions/authActionCreator'
+import { togglePlaceDetail } from '../../stores/actions/searchActionCreator'
 
 function Menu(props) {
-    let history = useHistory()
-
+    
     //============================================================================================================
     //Check if there is a token
     //============================================================================================================
+    let history = useHistory()
     let [isAuth, setIsAuth] = useState(false)
 
     let getUserToken = async () => {
@@ -36,12 +37,17 @@ function Menu(props) {
     }
 
 
+    const handleClickFavorites = () => {
+        props.togglePlaceDetail(false)
+        history.push('/favorites')
+    }
+
     return (
         <div>
-            <button><Link to='/favorites'>Favorites</Link></button>
+            <button onClick={()=> handleClickFavorites()}>Favorites</button>
             {isAuth
                 ? <button onClick={() => logOut()}>Logout</button>
-                : <button><Link to='/login'>Login</Link></button>}
+                : <button onClick={()=> history.push('/login')}>Login</button>}
         </div>
     )
 }
@@ -52,5 +58,5 @@ const mapStateToProps = (state) => {
         userLatLng: state.authReducer.userLatLng
     }
 }
-export default connect(mapStateToProps, { getUserLocation })(Menu)
+export default connect(mapStateToProps, { getUserLocation, togglePlaceDetail })(Menu)
 

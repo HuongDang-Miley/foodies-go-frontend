@@ -79,8 +79,6 @@ function FavMap(props) {
     const clickMap = (event) => {
         const newLocation = `${event.latLng.lat()},${event.latLng.lng()}`
         props.getNearbySearch(props.keyword, newLocation)
-        // console.log('newLocation', newLocation)
-        // console.log('props.keyword', props.keyword)
     }
 
 
@@ -93,7 +91,8 @@ function FavMap(props) {
 
     const changeMarkerIcon = (item) => {
         if (props.hoveredPlace && item.place_id === props.hoveredPlace.place_id) { return 'selected-marker.svg' }
-        if (props.showPlaceDetail && props.placeDetail && item.place_id === props.placeDetail.place_id) { return 'selected-marker.svg' }
+        // if (props.showPlaceDetail && props.placeDetail && item.place_id === props.placeDetail.place_id) { return 'selected-marker.svg' }
+        if (props.showFavPlaceDetail && props.placeDetail && item.place_id === props.placeDetail.place_id) { return 'selected-marker.svg' }
         return null
     }
 

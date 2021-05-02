@@ -8,7 +8,6 @@ import PlaceDetail from '../placeDetail/PlaceDetail'
 import Menu from '../menu/Menu'
 import LoginModal from '../modal/LoginModal'
 import FavPlaceSummary from '../favPlaceSummary/FavPlaceSummary'
-import { togglePlaceDetail } from '../../stores/actions/searchActionCreator'
 import { getUserLocation } from '../../stores/actions/authActionCreator'
 import { loadFavorites, addNote, deleteNote, deletePlace } from '../../stores/actions/favActionCreator'
 
@@ -49,7 +48,7 @@ function Favorites(props) {
             </div>
 
             <div className='map-wrapper'>
-                <FavMap />
+                <FavMap showFavPlaceDetail={showFavPlaceDetail} />
             </div>
 
             {/* //============================================================================================================
@@ -60,7 +59,6 @@ function Favorites(props) {
             <div className='sidebar-wrapper'>
                 {isAuth ?
                     <>
-                        {/* {props.showPlaceDetail */}
                         {showFavPlaceDetail
                             ? <div className='placeDetail-wrapper'>
                                 <PlaceDetail
@@ -103,4 +101,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, { loadFavorites, togglePlaceDetail, addNote, deleteNote, deletePlace, getUserLocation })(Favorites)
+export default connect(mapStateToProps, { loadFavorites, addNote, deleteNote, deletePlace, getUserLocation })(Favorites)
