@@ -1,22 +1,10 @@
-// =================================================================================
-// Start MUI CODE
-// =================================================================================
-
 import React, { useEffect, useState } from 'react'
 import { Redirect, useHistory } from 'react-router-dom'
 import { login, handleErrorMessage } from '../../stores/actions/authActionCreator'
 import { connect } from "react-redux";
-import { Button, TextField, createMuiTheme, Link, ThemeProvider, Container, Typography } from '@material-ui/core'
+import { Button, TextField, Link, Container, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
-import { blue, red } from '@material-ui/core/colors'
 
-
-const theme = createMuiTheme({
-    palette: {
-        primary: { main: red[700] },
-        secondary: blue
-    }
-})
 
 const useStyles = makeStyles({
     field: {
@@ -28,7 +16,7 @@ const useStyles = makeStyles({
         marginBottom: 24,
     },
     link: {
-        color: blue
+        color: 'secondary'
     },
 
     container: {
@@ -99,10 +87,7 @@ const Login = (props) => {
             setIsAuth(false)
         }
     }
-
     return (
-        <ThemeProvider theme={theme}>
-            <>
                 <Container maxWidth="sm" className={classes.container}>
 
                     {isAuth ? <Redirect to='/' />
@@ -161,8 +146,6 @@ const Login = (props) => {
                         </div>}
 
                 </Container>
-            </>
-        </ThemeProvider>
     )
 }
 
@@ -173,99 +156,4 @@ const mapStateToProps = (state) => {
     }
 }
 export default connect(mapStateToProps, { login, handleErrorMessage })(Login);
-
-// =================================================================================
-// End MUI CODE
-// =================================================================================
-
-// //=================================================================================
-// // Start Origin Code
-// //=================================================================================
-
-// import React, { useRef, useEffect, useState } from 'react'
-// import { Link, Redirect, useHistory } from 'react-router-dom'
-// import { login, handleErrorMessage } from '../../stores/actions/authActionCreator'
-// import { connect } from "react-redux";
-
-
-// const Login = (props) => {
-
-
-//     console.log('props in login', props)
-//     let emailRef = useRef()
-//     let passwordRef = useRef()
-
-//     //=================================================================================
-//     // Check if there is a token. If yes, page redirect to home
-//     //=================================================================================
-//     let history = useHistory();
-//     let [isAuth, setIsAuth] = useState(false)
-
-
-//     useEffect(() => {
-//         let userToken = localStorage.getItem('userToken')
-//         if (userToken) {
-//             setIsAuth(true)
-//         } else {
-//             setIsAuth(false)
-//         }
-//     }, [])
-
-//     //=================================================================================
-//     // When click login, if token is retrieved, redirect home and set errorMessage to null
-//     //=================================================================================
-
-//     const handleLogin = async (event) => {
-//         event.preventDefault()
-//         if (emailRef.current.value === '' || passwordRef.current.value === '') {
-//             alert("must fill in both email and password")
-//         }
-//         await props.login(emailRef.current.value, passwordRef.current.value)
-
-//         let userToken = await localStorage.getItem('userToken')
-
-//         if (userToken) {
-//             setIsAuth(true)
-//             history.push('/')
-//             props.handleErrorMessage(null)
-
-//         } else {
-//             setIsAuth(false)
-//         }
-//     }
-
-//     return (
-//         <>
-//             <Link to='/'>{`<- Go Home`}</Link>
-//             {isAuth ? <Redirect to='/' />
-//                 : <div>
-//                     <div>This is LOGIN page</div>
-//                     <p>props.errorMessage: {props.errorMessage}</p>
-
-//                     < form onSubmit={handleLogin} >
-//                         <input ref={emailRef} placeholder='email' type='email'></input>
-//                         <input ref={passwordRef} placeholder='password' type='password'></input>
-//                         <button>Login</button>
-
-//                     </form >
-//                     <Link to='/register'>Don't Have An Account? Register Here</Link>
-
-//                 </div>}
-
-//         </>
-
-//     )
-// }
-
-
-// const mapStateToProps = (state) => {
-//     return {
-//         errorMessage: state.authReducer.errorMessage
-//     }
-// }
-// export default connect(mapStateToProps, { login, handleErrorMessage })(Login);
-
-// //=================================================================================
-// // End Origin Code
-// //=================================================================================
 

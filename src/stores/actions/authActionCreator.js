@@ -36,7 +36,7 @@ export const login = (email, password) => async dispatch => {
     try {
         let response = await Axios.post('/users/login', userInfo)
 
-        if (response.data.status === 500 || response.data.status === 409) {
+        if (response.data.status === 404 || response.data.status === 409) {
             return dispatch({ type: 'HANDLE_ERROR_MESSAGE', errorMessage: response.data.message })
         } else {
             localStorage.setItem('userToken', response.data.token)

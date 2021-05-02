@@ -7,12 +7,21 @@ import Favorites from './components/favorites/Favorites.js'
 import Test from './components/test/Test.js'
 import PageNotFound from './components/pageNotFound/PageNotFound.js'
 import DirectionsMap from "./components/maps/DirectionsMap.js";
+import { createMuiTheme,  ThemeProvider } from '@material-ui/core'
+import { blue, red } from '@material-ui/core/colors'
+
+export const theme = createMuiTheme({
+  palette: {
+      primary: { main: red[700] },
+      secondary: blue
+  }
+})
 
 
 
-
-export default function App(props) {
+export default function App() {
   return (
+    <ThemeProvider theme={theme}>
     <Router>
       <Switch>
         <Route exact path="/" component={HomePage} />
@@ -24,6 +33,7 @@ export default function App(props) {
         <Route path="/" component={PageNotFound} />
       </Switch>
     </Router>
+    </ThemeProvider>
   );
 }
 
