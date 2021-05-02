@@ -17,7 +17,7 @@ const mapContainerStyle = {
 
 
 function FavMap(props) {
-    // console.log('props location in FavMap', props)
+    console.log('props location in FavMap', props)
 
     /******************************************************************************************************************************
     *                   Declare vairable
@@ -45,20 +45,17 @@ function FavMap(props) {
 
 
     const handleShowPlaceDetail = (id) => {
-        props.togglePlaceDetail(true)
+        console.log('click infowindow')
+        props.togglePlaceDetail(false)
+        props.setShowFavPlaceDetail(true)
         props.getPlaceDetail(id)
         props.mouseEnter(null)
     }
 
-    // const clickMap = (event) => {
-    //     const newLocation = `${event.latLng.lat()},${event.latLng.lng()}`
-    //     props.getNearbySearch(props.keyword, newLocation)
+    // const handleShowInfoWindow = (id) => {
+    //     props.togglePlaceDetail(true)
+    //     props.getPlaceDetail(id)
     // }
-
-    const handleShowInfoWindow = (id) => {
-        props.togglePlaceDetail(true)
-        props.getPlaceDetail(id)
-    }
 
     const changeMarkerIcon = (item) => {
         if (props.hoveredPlace && item.place_id === props.hoveredPlace.place_id) { return 'selected-marker.svg' }
@@ -82,7 +79,6 @@ function FavMap(props) {
                 mapContainerStyle={mapContainerStyle}
                 zoom={13}
                 center={centerLocation}
-                // onClick={clickMap}
             >
 
 /******************************************************************************************************************************
@@ -130,11 +126,14 @@ function FavMap(props) {
 
                 {selected ?
                     <InfoWindow
-                        onClick={() => handleShowPlaceDetail()}
+                        // onClick={() => handleShowPlaceDetail()}
                         onCloseClick={() => { setSelected(null) }}
                         position={selected.geometry.location}
                     >
-                        <div onClick={() => handleShowInfoWindow(selected.place_id)}>
+                        <div 
+                        // onClick={() => handleShowInfoWindow(selected.place_id)}
+                        onClick={() => handleShowPlaceDetail()}
+                        >
                             <h3>{selected.name}</h3>
                             <h3>{selected.rating}</h3>
                             <h3>{selected.vicinity}</h3>
@@ -150,7 +149,6 @@ function FavMap(props) {
 const mapStateToProps = (state) => {
     return {
         favList: state.favReducer.favList,
-        showPlaceDetail: state.searchReducer.showPlaceDetail,
         placeDetail: state.searchReducer.placeDetail,
         hoveredPlace: state.mapReducer.hoveredPlace,
         userLocation: state.authReducer.userLocation,

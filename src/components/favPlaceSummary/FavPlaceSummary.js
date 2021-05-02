@@ -16,7 +16,7 @@ function FavPlaceSummary(props) {
     let [openDeleteModal, setOpenDeleteModal] = useState(false)
 
     const handleShowPlaceDetail = (id) => {
-        // props.togglePlaceDetail(true)
+        props.togglePlaceDetail(false)
         props.setShowFavPlaceDetail(true)
         props.getPlaceDetail(id)
         props.mouseEnter(null)

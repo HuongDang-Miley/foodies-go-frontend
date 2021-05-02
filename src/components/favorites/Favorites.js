@@ -48,7 +48,10 @@ function Favorites(props) {
             </div>
 
             <div className='map-wrapper'>
-                <FavMap showFavPlaceDetail={showFavPlaceDetail} />
+                <FavMap
+                    showFavPlaceDetail={showFavPlaceDetail}
+                    setShowFavPlaceDetail={setShowFavPlaceDetail}
+                />
             </div>
 
             {/* //============================================================================================================

@@ -12,7 +12,7 @@ export const getNearbySearch = (keyword, location) => async dispatch => {
 
 
 export const getPlaceDetail = (id) => async dispatch => {
-    console.log('id in getPlaceDetail', id)
+    // console.log('id in getPlaceDetail', id)
     
     let response = await Axios.get(`/search/place-detail/${id}`) 
     
