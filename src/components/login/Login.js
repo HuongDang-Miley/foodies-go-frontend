@@ -2,26 +2,48 @@
 // Start MUI CODE
 // =================================================================================
 
-import React, { useRef, useEffect, useState } from 'react'
-import { Link, Redirect, useHistory } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Redirect, useHistory } from 'react-router-dom'
 import { login, handleErrorMessage } from '../../stores/actions/authActionCreator'
 import { connect } from "react-redux";
-import { Paper, Button, TextField, createMuiTheme, ThemeProvider, Container } from '@material-ui/core'
+import { Button, TextField, createMuiTheme, Link, ThemeProvider, Container, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
-import { red } from '@material-ui/core/colors'
+import { blue, red } from '@material-ui/core/colors'
+
 
 const theme = createMuiTheme({
     palette: {
-        primary: { main: red[700] }
+        primary: { main: red[700] },
+        secondary: blue
     }
 })
 
 const useStyles = makeStyles({
     field: {
-        marginTop: 16,
-        marginBottom: 16,
+        marginTop: 24,
+        marginBottom: 24,
         display: 'block'
+    },
+    button: {
+        marginBottom: 24,
+    },
+    link: {
+        color: blue
+    },
+
+    container: {
+        marginTop: 24,
+        textAlign: 'center',
+    },
+
+    typography: {
+        marginBottom: 32
+    },
+
+    icon: {
+        margin: 8
     }
+
 })
 
 
@@ -81,44 +103,64 @@ const Login = (props) => {
     return (
         <ThemeProvider theme={theme}>
             <>
+                <Container maxWidth="sm" className={classes.container}>
 
-                <Link to='/'>{`<- Go Home`}</Link>
-                {isAuth ? <Redirect to='/' />
-                    : <div>
-                        <div>This is LOGIN page</div>
-                        <p>{props.errorMessage}</p>
+                    {isAuth ? <Redirect to='/' />
+                        : <div>
+                            <img src="foodies-go-big-logo.svg" alt="logo" style={{ marginTop: 16, textAlign: 'left' }}></img>
+                            <p>{props.errorMessage}</p>
 
-                        <form noValidate autoComplete="off" onSubmit={handleSubmit}>
-                            <TextField className={classes.field}
-                                type='email'
-                                onChange={(e) => setEmail(e.target.value)}
-                                label="Email"
-                                variant="outlined"
-                                fullWidth
-                                required
-                                error={emailError}
-                            />
-                            <TextField className={classes.field}
-                                type="password"
-                                autoComplete="current-password"
-                                onChange={(e) => setPassword(e.target.value)}
-                                label="Password"
-                                variant="outlined"
-                                fullWidth
-                                required
-                                error={passwordError}
-                            />
+                            <form noValidate autoComplete="off" onSubmit={handleSubmit}>
+                                <TextField className={classes.field}
+                                    type='email'
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    label="Email"
+                                    variant="outlined"
+                                    fullWidth
+                                    required
+                                    error={emailError}
+                                />
+                                <TextField className={classes.field}
+                                    type="password"
+                                    autoComplete="current-password"
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    label="Password"
+                                    variant="outlined"
+                                    fullWidth
+                                    required
+                                    error={passwordError}
+                                />
 
-                            <Button
-                                type="submit"
-                                color="primary"
-                                variant="contained"
-                            >Login</Button>
-                        </form>
-                        <Link to='/register'>Don't Have An Account? Register Here</Link>
+                                <Button
+                                    className={classes.button}
+                                    type="submit"
+                                    color="primary"
+                                    variant="contained"
+                                    fullWidth
+                                >Login</Button>
+                            </form>
 
-                    </div>}
 
+                            <Typography className={classes.typography}>
+                                {`Don't Have An Account? `}
+                                <Link
+                                    color='secondary'
+                                    onClick={() => history.push('/register')}
+                                >
+                                    Register Here
+                            </Link>
+                            </Typography>
+
+
+                            <Link
+                                color='secondary'
+                                onClick={() => history.push('/')}
+                            >Back to search</Link>
+
+
+                        </div>}
+
+                </Container>
             </>
         </ThemeProvider>
     )
