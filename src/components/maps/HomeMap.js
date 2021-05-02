@@ -1,8 +1,9 @@
 
-import React, { useState, useCallback, useEffect } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { connect } from "react-redux";
-import { GoogleMap, useLoadScript, Marker, InfoWindow, Autocomplete } from '@react-google-maps/api';
-import { getNearbySearch, getPlaceDetail, togglePlaceDetail, mouseEnter } from '../../stores/actions/searchActionCreator'
+import { GoogleMap, useLoadScript, Marker, InfoWindow } from '@react-google-maps/api';
+import { getNearbySearch, getPlaceDetail, togglePlaceDetail } from '../../stores/actions/searchActionCreator'
+import { mouseEnter } from '../../stores/actions/mapActionCreator'
 import { getUserLocation } from '../../stores/actions/authActionCreator'
 
 
@@ -13,9 +14,15 @@ const mapContainerStyle = {
     height: '100vh'
 }
 
+// const usePrevious = (value) => {
+//     const ref = useRef();
+//     useEffect(() => {
+//         ref.current = value;
+//     });
+//     return ref.current;
+// }
 
 function HomeMap(props) {
-    // console.log('props.userLocation location in HomeMap', props)
 
     /******************************************************************************************************************************
     *                   Declare vairable
@@ -23,7 +30,7 @@ function HomeMap(props) {
 
     const [selected, setSelected] = useState(null)
     const [userAddress, setUserAddress] = useState(null)
-    const [showPlaceDetailInfoWindow, setShowPlaceDetailInfoWindow] = useState(true)
+    
     const [centerLocation, setCenterLocation] = useState({
         lat: 40.7834345,
         lng: -73.9662495
@@ -44,29 +51,30 @@ function HomeMap(props) {
     }, [props.userLocation])
 
 
-
     const handleShowPlaceDetail = (id) => {
         props.togglePlaceDetail(true)
         props.getPlaceDetail(id)
         props.mouseEnter(null)
     }
 
+    /******************************************************************************************************************************
+    *       Track newLocation lat and lng, if these value change, show "Search This Area" button
+    ******************************************************************************************************************************/
 
-    // const onMapCLick = useCallback((event) => {
-    //     const newLocation = `${event.latLng.lat()},${event.latLng.lng()}`
-    //     let keyword = getKeyword()
-    //     // setCenterLocation({lat: event.latLng.lat(), lng: event.latLng.lng()})
-    //     // props.getNearbySearch(props.keyword, newLocation)
+    // const [newLocation, setNewLocation] = useState(null)
+
+    // const clickMap = (event) => {
+    //     setNewLocation(`${event.latLng.lat()},${event.latLng.lng()}`)
+    //     props.getNearbySearch(props.keyword, newLocation)
+
     //     console.log('newLocation', newLocation)
-    //     console.log('keyword', keyword)
-    //     // console.log('props.places', props.places)
-    // }, [])
+    //     console.log('prevLocation', prevLocation)
+    //     console.log('props.keyword', props.keyword)
+    // }
 
     const clickMap = (event) => {
         const newLocation = `${event.latLng.lat()},${event.latLng.lng()}`
         props.getNearbySearch(props.keyword, newLocation)
-        // console.log('newLocation', newLocation)
-        // console.log('props.keyword', props.keyword)
     }
 
 
@@ -81,24 +89,10 @@ function HomeMap(props) {
         if (props.showPlaceDetail && props.placeDetail && item.place_id === props.placeDetail.place_id) { return 'selected-marker.svg' }
         return null
     }
-    /******************************************************************************************************************************
-    *                     AutoComplete Function
-    ******************************************************************************************************************************/
-    const [autocomplete, setAutocomplete] = useState(null)
-    const onLoad = (autocomplete) => {
-        setAutocomplete(autocomplete)
-        console.log('autocomplete: ', autocomplete)
-    }
 
-    const onPlaceChanged = () => {
-        if (autocomplete !== null) {
-            let place = autocomplete.getPlace()
-            console.log('place lat', place.geometry.location.lat())
-            console.log('place long', place.geometry.location.lng())
-        } else {
-            console.log('Autocomplete is not loaded yet!')
-        }
-    }
+    /******************************************************************************************************************************
+    *                     Check Isloaded
+    ******************************************************************************************************************************/
 
     if (loadError) return 'Error Loading Map'
     if (!isLoaded) return 'Loading Maps'
@@ -122,22 +116,20 @@ function HomeMap(props) {
                     <>
                         <Marker
                             icon='current-location-marker.png'
-                            // icon='favicon.ico'
                             position={centerLocation}
                             onClick={() => {
                                 setUserAddress(props.userLocation)
                                 setSelected(null)
-                                // setShowPlaceDetailInfoWindow(false)
                             }}
                         />
-                        {/* {userAddress ?
+                        {userAddress ?
                             <InfoWindow
                                 position={centerLocation}
                                 onCloseClick={() => { setUserAddress(null) }}
                             ><div>
                                     <p>My Location:</p>
                                     <p>{`${userAddress.city}  ${userAddress.state}, ${userAddress.postal} ${userAddress.country_code}`}</p>
-                                </div></InfoWindow> : null} */}
+                                </div></InfoWindow> : null}
                     </> : null
                 }
 
@@ -156,7 +148,6 @@ function HomeMap(props) {
                         onClick={() => {
                             setSelected(item)
                             setUserAddress(false)
-                            // setShowPlaceDetailInfoWindow(false)
                         }}
                     />
                 )}
@@ -188,5 +179,5 @@ const mapStateToProps = (state) => {
         keyword: state.searchReducer.keyword,
     }
 }
-export default connect(mapStateToProps, { getNearbySearch, getPlaceDetail, togglePlaceDetail, getUserLocation })(HomeMap)
+export default connect(mapStateToProps, { getNearbySearch, getPlaceDetail, togglePlaceDetail, getUserLocation, mouseEnter })(HomeMap)
 

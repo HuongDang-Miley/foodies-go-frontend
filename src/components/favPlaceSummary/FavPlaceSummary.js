@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { useHistory } from 'react-router-dom';
 import './favPlaceSummary.css'
 import AddNoteModal from '../modal/AddNoteModal'
 import DeleteModal from '../modal/DeleteModal'
@@ -11,7 +10,6 @@ import { mouseEnter } from '../../stores/actions/mapActionCreator'
 
 function FavPlaceSummary(props) {
     
-    const history = useHistory()
     let [openAddNoteModal, setOpenAddNoteModal] = useState(false)
     let [openDeleteModal, setOpenDeleteModal] = useState(false)
 

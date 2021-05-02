@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './homePage.css'
 import { connect } from "react-redux";
 import HomeSidebar from '../homeSidebar/HomeSidebar'
@@ -7,28 +7,19 @@ import PlaceDetail from '../placeDetail/PlaceDetail'
 import Menu from '../menu/Menu'
 
 function HomePage(props) {
-    // let [showPlaceDetail, setShowPlaceDetail] = useState(false)
+
     return (
         <div>
-            <div className='map-wrapper'>
-                <HomeMap />
-            </div>
+            <div className='map-wrapper'><HomeMap /></div>
+
             <div className='sidebar-wrapper'>
                 {props.showPlaceDetail
-                // {showPlaceDetail
-                    ? <PlaceDetail
-                        // showPlaceDetail={showPlaceDetail}
-                        // setShowPlaceDetail={setShowPlaceDetail}
-                    />
-                    : <HomeSidebar
-                        // setShowPlaceDetail={setShowPlaceDetail}
-                    />
+                    ? <PlaceDetail />
+                    : <HomeSidebar />
                 }
+            </div>
 
-            </div>
-            <div className='menu-wrapper'>
-                <Menu />
-            </div>
+            <div className='menu-wrapper'><Menu /></div>
         </div>
     )
 }

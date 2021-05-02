@@ -6,7 +6,7 @@ import { getPlaceDetail, togglePlaceDetail } from '../../stores/actions/searchAc
 import { mouseEnter } from '../../stores/actions/mapActionCreator'
 
 function PlaceSummary(props) {
-    console.log('props from PlaceSummary', props)
+    // console.log('props from PlaceSummary', props)
 
     const handleShowPlaceDetail = (id) => {
         props.togglePlaceDetail(true)
