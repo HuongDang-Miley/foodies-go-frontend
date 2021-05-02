@@ -2,21 +2,19 @@ import React, { useRef, useEffect, useState } from 'react'
 import { Link, Redirect, useHistory } from 'react-router-dom'
 import { login, handleErrorMessage } from '../../stores/actions/authActionCreator'
 import { connect } from "react-redux";
-import { Paper, Button } from '@material-ui/core'
+import { Paper, Button, createMuiTheme, ThemeProvider } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
+import {red} from '@material-ui/core/colors'
 
-
-const useStyles = makeStyles({
-    root: {
-        backgroundColor: 'red',
-        color: props => props.color,
-    },
-});
+const theme = createMuiTheme({
+    patlette: {
+        primary: { main: red[700] }
+    }
+})
 
 
 const Login = (props) => {
-    const classes = useStyles(props);
-
+    
     console.log('props in login', props)
     let emailRef = useRef()
     let passwordRef = useRef()
@@ -42,11 +40,8 @@ const Login = (props) => {
     // When click login, if token is retrieved, redirect home and set errorMessage to null
     //=================================================================================
 
-    const handleLogin = async (event) => {
-        event.preventDefault()
-        if (emailRef.current.value === '' || passwordRef.current.value === '') {
-            alert("must fill in both email and password")
-        }
+    const handleLogin = async () => {
+        
         await props.login(emailRef.current.value, passwordRef.current.value)
 
         let userToken = await localStorage.getItem('userToken')
@@ -59,8 +54,25 @@ const Login = (props) => {
         } else {
             setIsAuth(false)
         }
-
     }
+    // const handleLogin = async (event) => {
+    //     event.preventDefault()
+    //     if (emailRef.current.value === '' || passwordRef.current.value === '') {
+    //         alert("must fill in both email and password")
+    //     }
+    //     await props.login(emailRef.current.value, passwordRef.current.value)
+
+    //     let userToken = await localStorage.getItem('userToken')
+
+    //     if (userToken) {
+    //         setIsAuth(true)
+    //         history.push('/')
+    //         props.handleErrorMessage(null)
+
+    //     } else {
+    //         setIsAuth(false)
+    //     }
+    // }
 
     return (
         <>
@@ -73,7 +85,7 @@ const Login = (props) => {
                         < form onSubmit={handleLogin} >
                             <input ref={emailRef} placeholder='email' type='email'></input>
                             <input ref={passwordRef} placeholder='password' type='password'></input>
-                            <Button>LOGIN</Button>
+                            <Button onClick={()=>handleLogin()} color='primary' variant='contained'>LOGIN</Button>
                             {/* <button>LOGIN</button> */}
                             <Link to='/register'>Don't Have An Account? Register Here</Link>
                         </form >
