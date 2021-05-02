@@ -1,0 +1,7 @@
+.filters-wrapper {
+    display: inline-block;
+}
+
+select {
+    margin-left: 16px;
+}

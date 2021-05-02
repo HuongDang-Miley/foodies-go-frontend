@@ -1,0 +1,38 @@
+.search-bar {
+    background-color: #d32f2f;
+    width: 500px;
+    position: fixed;
+    top: 0;
+    z-index: 5; 
+    padding: 16px;
+}
+
+.filters-bar {
+    background-color: white;
+    padding: 16px;
+    position: fixed;
+    top: 48px;
+    width: 500px;
+    z-index: 2;
+}
+
+.placelist-wrapper {
+    background-color: white;
+    position: absolute;
+    top: 90px;
+    width: 500px;
+    height: 100vh;
+    overflow: scroll;
+    /* z-index: 3; */
+}
+
+.result-text {
+    /* line-height: 16px; */
+    margin: 0;
+    width: 90px;
+    display: inline-block;
+}
+
+/* .filters{
+    display: inline-block;
+} */
