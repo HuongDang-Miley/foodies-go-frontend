@@ -8,7 +8,7 @@ import { togglePlaceDetail } from '../../stores/actions/searchActionCreator'
 import { AddToFavorites, deletePlace } from '../../stores/actions/favActionCreator'
 
 function PlaceDetail(props) {
-    console.log(props)
+    // console.log(props)
     // ============================================================================================================
     //Declare Variable
     //============================================================================================================
@@ -54,6 +54,14 @@ function PlaceDetail(props) {
         setShowAddToFavBtn(true)
     }
 
+    const handleGetDirection = () => {
+        localStorage.setItem('destinationLat', props.placeDetail.geometry.location.lat)
+        localStorage.setItem('destinationLng', props.placeDetail.geometry.location.lng)
+        // localStorage.setItem('userLat', props.userLocation.latitude)
+        // localStorage.setItem('userLng', props.userLocation.longitude)
+        history.push('/directions')
+    }
+
     const [showOpenHour, setShowOpenHour] = useState(false)
 
     return (
@@ -83,7 +91,8 @@ function PlaceDetail(props) {
                             ? <button className='add-to-fav-btn' onClick={() => handleAddToFavorites()}>Add To Favorite</button>
                             : <button className='add-to-fav-btn' onClick={() => handleDetelePlace()}>Delete From Favorite</button>
                         }
-                        <button onClick={() => history.push('/directions')}>Get Directions</button>
+                        <button onClick={() => handleGetDirection()}>Get Directions</button>
+                        {/* <button onClick={() => history.push('/directions')}>Get Directions</button> */}
                         {/* ============================================================================================================
                         Place Detail section
                         ============================================================================================================ */}
@@ -131,7 +140,8 @@ const mapStateToProps = (state) => {
     return {
         favList: state.favReducer.favList,
         placeDetail: state.searchReducer.placeDetail,
-        showPlaceDetail: state.searchReducer.showPlaceDetail
+        showPlaceDetail: state.searchReducer.showPlaceDetail,
+        userLocation: state.authReducer.userLocation,
     }
 }
 

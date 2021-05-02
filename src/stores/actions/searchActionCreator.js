@@ -16,7 +16,7 @@ export const getPlaceDetail = (id) => async dispatch => {
     
     let response = await Axios.get(`/search/place-detail/${id}`) 
     
-    console.log('iresponse.data.result in getPlaceDetail', response.data.result)
+    // console.log('iresponse.data.result in getPlaceDetail', response.data.result)
     return dispatch({
         type: 'SHOW_PLACE_DETAIL',
         placeDetail: response.data.result  

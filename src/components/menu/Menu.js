@@ -32,7 +32,9 @@ function Menu(props) {
 
     const logOut = async () => {
         await localStorage.removeItem('userToken')
-        setIsAuth(false)
+        await setIsAuth(false)
+        await localStorage.removeItem('destinationLat')
+        await localStorage.removeItem('destinationLng')
         history.push('/')
     }
 

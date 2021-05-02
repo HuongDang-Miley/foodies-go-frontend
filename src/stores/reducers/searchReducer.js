@@ -22,7 +22,7 @@ const searchReducer = (state = initialState, action) => {
             }
 
         case 'TOGGLE_PLACE_DETAIL':
-            console.log(action)
+            // console.log(action)
             return {
                 ...state,
                 showPlaceDetail: action.showPlaceDetail

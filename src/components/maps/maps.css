@@ -51,3 +51,8 @@ text-overflow: ellipses;
 margin-top: 8px;
 margin: auto;
 }
+
+.selected-mode {
+    background-color: red;
+    color: white;
+}

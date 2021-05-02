@@ -8,37 +8,74 @@ import Menu from '../menu/Menu'
 
 
 const DirectionsMap = (props) => {
-    console.log('props in DirectionsMap', props.travelMode)
+    // console.log('userLocation in DirectionsMap', props.userLocation)
+
+    const travelOptions = [
+        { name: 'DRIVING', selected: true },
+        { name: 'WALKING', selected: false },
+        { name: 'BICYCLING', selected: false },
+        { name: 'TRANSIT', selected: false },
+    ]
 
     const [startPoint, setStartPoint] = useState({ lat: null, lng: null })
     const [endPoint, setEndPoint] = useState({ lat: null, lng: null })
     const [travelMode, setTravelMode] = useState("DRIVING")
+    const [loadDirection, setLoadDirection] = useState('false')
 
-    useEffect(() => {
-        if (props.placeDetail) {
-            setEndPoint(props.placeDetail.geometry.location)
-            renderMap()
-        }
-    }, [props.placeDetail, startPoint.lat])
 
+    let destinationLat = Number(localStorage.getItem('destinationLat'))
+    let destinationLng = Number(localStorage.getItem('destinationLng'))
+    let userLat = Number(localStorage.getItem('userLat'))
+    let userLng = Number(localStorage.getItem('userLng'))
+
+
+    useEffect(async () => {
+        console.log('this line is useEffect')
+        await setEndPoint({ lat: destinationLat, lng: destinationLng })
+        await setStartPoint({ lat: userLat, lng: userLng })
+        // await setLoadDirection(true)
+        await renderMap()
+    }, [destinationLat, destinationLng, startPoint.lat, travelMode])
+
+
+
+
+    // useEffect(() => {
+    //     if (destinationLat && destinationLng) {
+    //         setEndPoint({ lat: destinationLat, lng: destinationLng })
+    //         renderMap()
+    //     }
+    //     console.log('endPoint', endPoint, 'destinationLng:', destinationLng)
+    // }, [destinationLng, startPoint.lat])
 
     //============================================================================================================
-    // Render Map content
+    // Functions
     //============================================================================================================  
 
+    // Switch travel option
+    const handleTravelMode = (item) => {
+        setTravelMode(item.name)
+        item.selected = true
+    }
+    
+
+    // Render Map content
     const renderMap = () => {
         loadScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyALhFgmCW6bVy6JdBOF_ccNtu1NgrfRxiw&callback=initMap")
         window.initMap = initMap
     }
 
-    //============================================================================================================
-    // Map content
-    //============================================================================================================  
+
+/******************************************************************************************************************************
+*                      Map content
+******************************************************************************************************************************/
 
     const initMap = () => {
         // Create A Map
         var map = new window.google.maps.Map(document.getElementById('map'), {
-            center: { lat: 40.7834345, lng: -73.9662495 },
+            // center: { lat: 40.7834345, lng: -73.9662495 },
+            // center: userLocation,
+            center: { lat: props.userLocation.latitude, lng: props.userLocation.longitude },
             zoom: 13
         })
 
@@ -51,9 +88,17 @@ const DirectionsMap = (props) => {
         //bind the DirectionsRenderer to the map
         directionsRenderer.setMap(map);
 
-        // If ther is placeDetail and userLocation, create a route
 
-        if (startPoint !== null && endPoint !== null) {
+        // Create Marker for Destination
+        new window.google.maps.Marker({
+            position: endPoint,
+            map,
+            title: "Hello World!",
+        });
+
+        // Load direction if there is endpoint, startpoint, load
+        if (startPoint !== null && endPoint !== null && loadDirection) {
+            // console.log('request place run')
             directionsService.route(
                 {
                     origin: startPoint,
@@ -63,6 +108,7 @@ const DirectionsMap = (props) => {
                 (response, status) => {
                     if (status === "OK") {
                         directionsRenderer.setDirections(response);
+                        console.log('response', response)
                         // get distance from response to state
                         props.getDistance(response.routes[0].legs[0].distance.text)
                         // set duration from response to state
@@ -86,16 +132,16 @@ const DirectionsMap = (props) => {
 
     const onLoad = (autocomplete) => {
         setAutocomplete(autocomplete)
-        console.log('autocomplete: ', autocomplete)
+        // console.log('autocomplete: ', autocomplete)
     }
 
     const onPlaceChanged = () => {
         if (autocomplete !== null) {
             let place = autocomplete.getPlace()
-            console.log('place lat', place.geometry.location.lat())
-            console.log('place long', place.geometry.location.lng())
             setStartPoint({ lat: place.geometry.location.lat(), lng: place.geometry.location.lng() })
+            setLoadDirection(true)
         } else {
+            setLoadDirection(false)
             console.log('Autocomplete is not loaded yet!')
         }
     }
@@ -106,8 +152,12 @@ const DirectionsMap = (props) => {
                 <Link to='./'>Back To Search</Link>
             </div>
             <div className='directions-wrapper'>
-                <p>{props.duration}</p>
-                <p>{props.distance}</p>
+                {travelOptions.map((item) =>
+                    <button
+                        className={item.selected ? 'selected-mode' : null}
+                        onClick={() => handleTravelMode(item)}>{item.name}</button>)}
+                {/* <strong>{props.duration}</strong><span></span> */}
+                <p><strong>{props.duration}</strong> {props.distance}</p>
                 <Autocomplete
                     onLoad={onLoad}
                     onPlaceChanged={onPlaceChanged}
@@ -131,9 +181,9 @@ const DirectionsMap = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        placeDetail: state.searchReducer.placeDetail,
+        // placeDetail: state.searchReducer.placeDetail,
         userLocation: state.authReducer.userLocation,
-        travelMode: state.mapReducer.travelMode,
+        // travelMode: state.mapReducer.travelMode,
         distance: state.mapReducer.distance,
         duration: state.mapReducer.duration,
     }

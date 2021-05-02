@@ -71,6 +71,15 @@ export const getUserLocation = () => async dispatch => {
 
     let response = await axios.get(`https://geolocation-db.com/json/${key}`)
 
+    console.log('response.data', response.data)
+
+    localStorage.setItem('userLat', response.data.latitude)
+    localStorage.setItem('userLng', response.data.longitude)
+    localStorage.setItem('userCity', response.data.city)
+    localStorage.setItem('userState', response.data.state)
+    localStorage.setItem('userPostal', response.data.postal)
+    localStorage.setItem('userCountry', response.data.country_code)
+
     return dispatch({
         type: "GET_USER_LOCATION",
         userLocation: response.data,
