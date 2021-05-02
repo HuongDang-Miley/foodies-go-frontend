@@ -20,7 +20,7 @@ const DirectionsMap = (props) => {
     const [startPoint, setStartPoint] = useState({ lat: null, lng: null })
     const [endPoint, setEndPoint] = useState({ lat: null, lng: null })
     const [travelMode, setTravelMode] = useState("DRIVING")
-    const [loadDirection, setLoadDirection] = useState('false')
+    const [loadDirection, setLoadDirection] = useState(false)
 
 
     let destinationLat = Number(localStorage.getItem('destinationLat'))
@@ -32,10 +32,9 @@ const DirectionsMap = (props) => {
     useEffect(async () => {
         console.log('this line is useEffect')
         await setEndPoint({ lat: destinationLat, lng: destinationLng })
-        await setStartPoint({ lat: userLat, lng: userLng })
-        // await setLoadDirection(true)
+        // await setStartPoint({ lat: userLat, lng: userLng })
         await renderMap()
-    }, [destinationLat, destinationLng, startPoint.lat, travelMode])
+    }, [destinationLat, destinationLng, startPoint.lat, travelMode, endPoint.lat])
 
 
 
@@ -57,7 +56,7 @@ const DirectionsMap = (props) => {
         setTravelMode(item.name)
         item.selected = true
     }
-    
+
 
     // Render Map content
     const renderMap = () => {
@@ -66,17 +65,16 @@ const DirectionsMap = (props) => {
     }
 
 
-/******************************************************************************************************************************
-*                      Map content
-******************************************************************************************************************************/
+    /******************************************************************************************************************************
+    *                      Map content
+    ******************************************************************************************************************************/
 
     const initMap = () => {
         // Create A Map
         var map = new window.google.maps.Map(document.getElementById('map'), {
-            // center: { lat: 40.7834345, lng: -73.9662495 },
-            // center: userLocation,
-            center: { lat: props.userLocation.latitude, lng: props.userLocation.longitude },
+            center: { lat: userLat, lng: userLng },
             zoom: 13
+            // center: { lat: 40.7834345, lng: -73.9662495 },
         })
 
         //create a DirectionsService object to use the route method and get a result for our request
@@ -89,12 +87,14 @@ const DirectionsMap = (props) => {
         directionsRenderer.setMap(map);
 
 
-        // Create Marker for Destination
-        new window.google.maps.Marker({
-            position: endPoint,
-            map,
-            title: "Hello World!",
-        });
+        // Create Marker for Destination. If Direction is not load, show marker
+        if (!loadDirection) {
+            new window.google.maps.Marker({
+                position: endPoint,
+                map,
+                title: "Hello World!",
+            });
+        }
 
         // Load direction if there is endpoint, startpoint, load
         if (startPoint !== null && endPoint !== null && loadDirection) {
