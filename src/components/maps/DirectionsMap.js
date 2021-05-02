@@ -11,7 +11,7 @@ const DirectionsMap = (props) => {
     // console.log('userLocation in DirectionsMap', props.userLocation)
 
     const travelOptions = [
-        { name: 'DRIVING', selected: true },
+        { name: 'DRIVING', selected: false },
         { name: 'WALKING', selected: false },
         { name: 'BICYCLING', selected: false },
         { name: 'TRANSIT', selected: false },
@@ -54,7 +54,9 @@ const DirectionsMap = (props) => {
     // Switch travel option
     const handleTravelMode = (item) => {
         setTravelMode(item.name)
+        console.log('item before change selected', item)
         item.selected = true
+        console.log('item after change selected', item)
     }
 
 
@@ -154,8 +156,10 @@ const DirectionsMap = (props) => {
             <div className='directions-wrapper'>
                 {travelOptions.map((item) =>
                     <button
-                        className={item.selected ? 'selected-mode' : null}
-                        onClick={() => handleTravelMode(item)}>{item.name}</button>)}
+                    onClick={() => handleTravelMode(item)}
+                    className={item.selected ? console.log('true', item.selected) : console.log('false', item.selected)}
+                        // className={item.selected ? 'selected-mode normal' : 'normal'}
+                        >{item.name}</button>)}
                 {/* <strong>{props.duration}</strong><span></span> */}
                 <p><strong>{props.duration}</strong> {props.distance}</p>
                 <Autocomplete
@@ -174,7 +178,7 @@ const DirectionsMap = (props) => {
             <div className='menu-wrapper'>
                 <Menu />
             </div>
-        </div>
+        </div >
     )
 
 }
