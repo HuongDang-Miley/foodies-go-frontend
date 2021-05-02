@@ -187,7 +187,7 @@ const mapStateToProps = (state) => {
     return {
         // placeDetail: state.searchReducer.placeDetail,
         userLocation: state.authReducer.userLocation,
-        // travelMode: state.mapReducer.travelMode,
+        
         distance: state.mapReducer.distance,
         duration: state.mapReducer.duration,
     }

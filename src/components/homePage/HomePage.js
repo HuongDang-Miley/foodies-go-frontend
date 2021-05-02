@@ -6,12 +6,12 @@ import HomeMap from '../maps/HomeMap'
 import PlaceDetail from '../placeDetail/PlaceDetail'
 import Menu from '../menu/Menu'
 
+
 function HomePage(props) {
 
     return (
         <div>
             <div className='map-wrapper'><HomeMap /></div>
-
             <div className='sidebar-wrapper'>
                 {props.showPlaceDetail
                     ? <PlaceDetail />
