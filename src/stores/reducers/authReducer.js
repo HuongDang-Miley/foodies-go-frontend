@@ -1,9 +1,8 @@
 const initialState = {
     isAuth: false,
-    registerMessage: "",
     successRegisterMessage: "",
     errorRegisterMessage: "",
-    errorMessage: "",
+    loginErrorMessage: "",
     user: {},
     userLocation: null,
     userLatLng: null,
@@ -15,7 +14,7 @@ const authReducer = (state = initialState, action) => {
         case 'HANDLE_ERROR_MESSAGE':
             return {
                 state,
-                errorMessage: action.errorMessage,
+                loginErrorMessage: action.loginErrorMessage,
                 successMessage: action.successMessage,
             }
 
@@ -30,7 +29,6 @@ const authReducer = (state = initialState, action) => {
             console.log(action)
             return {
                 ...state,
-                registerMessage: action.registerMessage,
                 successRegisterMessage: action.successRegisterMessage,
                 errorRegisterMessage: action.errorRegisterMessage,
             }

@@ -12,7 +12,7 @@ export const register = (username, email, password) => async dispatch => {
 
         return dispatch({
             type: 'REGISTER',
-            registerMessage: newUser.data.message,
+            // registerMessage: newUser.data.message,
             successRegisterMessage: newUser.data.message,
         })
 
@@ -21,8 +21,8 @@ export const register = (username, email, password) => async dispatch => {
         if (error.response.status === 409) {
             return dispatch({
                 type: 'REGISTER',
-                registerMessage: 'Email already exist. Try again or ',
-                errorRegisterMessage: 'Email already exist. Try again or '
+                // registerMessage: 'Email already exist. Try again or ',
+                errorRegisterMessage: 'Email already exists. Try again or login.'
             })
         }
         throw (error)
@@ -39,7 +39,7 @@ export const login = (email, password) => async dispatch => {
         let response = await Axios.post('/users/login', userInfo)
 
         if (response.data.status === 404 || response.data.status === 409) {
-            return dispatch({ type: 'HANDLE_ERROR_MESSAGE', errorMessage: response.data.message })
+            return dispatch({ type: 'HANDLE_ERROR_MESSAGE', loginErrorMessage: response.data.message })
         } else {
             localStorage.setItem('userToken', response.data.token)
         }
@@ -48,7 +48,7 @@ export const login = (email, password) => async dispatch => {
 }
 
 export const handleErrorMessage = (message) => dispatch => {
-    return dispatch({ type: 'HANDLE_ERROR_MESSAGE', errorMessage: message })
+    return dispatch({ type: 'HANDLE_ERROR_MESSAGE', loginErrorMessage: message })
 }
 
 // //=============================================================================================

@@ -28,10 +28,6 @@ const useStyles = makeStyles({
         marginBottom: 32
     },
 
-    icon: {
-        margin: 8
-    }
-
 })
 
 
@@ -44,6 +40,7 @@ const Login = (props) => {
     const [password, setPassword] = useState('')
     const [emailError, setEmailError] = useState(false)
     const [passwordError, setPasswordError] = useState(false)
+    const [errorMessage, setErrorMessage] = useState('')
 
 //=================================================================================
 // Check if there is a token. If yes, page redirect to home
@@ -75,6 +72,7 @@ const Login = (props) => {
         }
         if (email && password) {
             await props.login(email, password)
+            await setErrorMessage(props.loginErrorMessage)
         }
 
         let userToken = await localStorage.getItem('userToken')
@@ -92,8 +90,9 @@ const Login = (props) => {
         <Container maxWidth="sm" className={classes.container}>
             {isAuth ? <Redirect to='/' />
                 : <div>
-                    <img src="foodies-go-big-logo.svg" alt="logo" style={{ marginTop: 16, textAlign: 'left' }}></img>
-                    <p>{props.errorMessage}</p>
+                    <img src="foodies-go-big-logo.svg" alt="logo" style={{ marginTop: 24 }}></img>
+                    {/* <p style={{color: 'red', marginTop: 24, marginBottom: 24}}>{props.loginErrorMessage}</p> */}
+                    <p style={{color: 'red', marginTop: 24, marginBottom: 24}}>{errorMessage}</p>
 
                     <form noValidate autoComplete="off" onSubmit={handleSubmit}>
                         <TextField className={classes.field}
@@ -152,7 +151,7 @@ const Login = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        errorMessage: state.authReducer.errorMessage
+        loginErrorMessage: state.authReducer.loginErrorMessage
     }
 }
 export default connect(mapStateToProps, { login, handleErrorMessage })(Login);
