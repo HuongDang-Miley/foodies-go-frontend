@@ -47,7 +47,13 @@ const useStyles = makeStyles({
     autoCompleteInput: {
         width: 400,
         height: 48
-    }
+    },
+
+    // Place Detail
+    blueNavLink: {
+        // color: 'secondary',
+        marginLef:16
+    },
 })
 
 export default useStyles
