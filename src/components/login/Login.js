@@ -4,31 +4,8 @@ import { login, handleErrorMessage } from '../../stores/actions/authActionCreato
 import { connect } from "react-redux";
 import { Button, TextField, Link, Container, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
+import  useStyles from '../../stores/Theme.js'
 
-
-const useStyles = makeStyles({
-    field: {
-        marginTop: 24,
-        marginBottom: 24,
-        display: 'block'
-    },
-    button: {
-        marginBottom: 24,
-    },
-    link: {
-        color: 'secondary'
-    },
-
-    container: {
-        marginTop: 24,
-        textAlign: 'center',
-    },
-
-    typography: {
-        marginBottom: 32
-    },
-
-})
 
 
 const Login = (props) => {

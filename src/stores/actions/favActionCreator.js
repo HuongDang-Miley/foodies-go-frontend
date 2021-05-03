@@ -3,16 +3,20 @@
 import Axios from './Axios.js'
 
 export const AddToFavorites = (userId, place) => async dispatch => {
+    console.log('place', place)
 
     let addPlace = {
         formatted_phone_number: place.formatted_phone_number,
         geometry: place.geometry,
         name: place.name,
+        price_level: place.price_level,
+        types: place.types,
         place_id: place.place_id,
         rating: place.rating,
         url: place.url,
         vicinity: place.vicinity,
         website: place.website,
+        reviews:  place.reviews.length,
         note: null
     }
 

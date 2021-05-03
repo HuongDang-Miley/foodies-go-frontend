@@ -4,31 +4,32 @@ import { connect } from "react-redux";
 import { useHistory } from 'react-router-dom'
 import { Button, TextField, Link, Container, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
+import  useStyles from '../../stores/Theme.js'
 
-const useStyles = makeStyles({
-    field: {
-        marginTop: 24,
-        marginBottom: 24,
-        display: 'block'
-    },
-    button: {
-        marginBottom: 24,
-    },
+// const useStyles = makeStyles({
+//     field: {
+//         marginTop: 24,
+//         marginBottom: 24,
+//         display: 'block'
+//     },
+//     button: {
+//         marginBottom: 24,
+//     },
 
-    link: {
-        color: 'secondary'
-    },
+//     link: {
+//         color: 'secondary'
+//     },
 
-    container: {
-        marginTop: 24,
-        textAlign: 'center',
-    },
+//     container: {
+//         marginTop: 24,
+//         textAlign: 'center',
+//     },
 
-    typography: {
-        marginBottom: 32
-    },
+//     typography: {
+//         marginBottom: 32
+//     },
 
-})
+// })
 
 
 const Register = (props) => {

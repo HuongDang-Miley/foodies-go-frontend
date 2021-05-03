@@ -17,7 +17,7 @@ const mapContainerStyle = {
 
 
 function FavMap(props) {
-    console.log('props location in FavMap', props)
+    // console.log('props location in FavMap', props)
 
     /******************************************************************************************************************************
     *                   Declare vairable
