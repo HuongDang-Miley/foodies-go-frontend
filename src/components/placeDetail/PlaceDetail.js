@@ -151,7 +151,8 @@ function PlaceDetail(props) {
                             <Typography variant="body1" color="textSecondary" component="p">
                                 {`${props.placeDetail.rating} `}
                                 <img src={converRatingToStar(props.placeDetail.rating)} alt={props.placeDetail.rating} height={16} />
-                                {` (${props.placeDetail.reviews.length}) ${convertPriceLevel(props.placeDetail.price_level)}`}
+                                {/* {` (${props.placeDetail.reviews.length}) ${convertPriceLevel(props.placeDetail.price_level)}`} */}
+                                {props.placeDetail.reviews ? props.placeDetail.reviews.length  : null} ${convertPriceLevel(props.placeDetail.price_level)}`
                             </Typography>
                             <Typography variant="body1" color="textSecondary" component="p">
                                 {props.placeDetail.name}
@@ -180,27 +181,29 @@ function PlaceDetail(props) {
                         {/* ============================================================================================================
                      User Reviews section
                       ============================================================================================================ */}
+                        {props.placeDetail.reviews
+                            ? <>
+                                {props.placeDetail.reviews.map(item =>
 
-                        {props.placeDetail.reviews.map(item =>
+                                    <Card key={item.author_name}>
+                                        <CardHeader
+                                            title={item.author_name}
+                                            avatar={<img className='user-review-img' src={item.profile_photo_url} height='48' />}
+                                            subheader={`${item.rating} reviews`}
+                                        />
 
-                            <Card key={item.author_name}>
-                                <CardHeader
-                                    title={item.author_name}
-                                    avatar={<img className='user-review-img' src={item.profile_photo_url} height='48' />}
-                                    subheader={`${item.rating} reviews`}
-                                />
+                                        <CardContent>
+                                            <Typography variant="body1" color="textSecondary" component="p">
+                                                {item.relative_time_description}
+                                            </Typography>
+                                            <Typography variant="body2" color="textSecondary" component="p">
+                                                {item.text}
+                                            </Typography>
+                                        </CardContent>
 
-                                <CardContent>
-                                    <Typography variant="body1" color="textSecondary" component="p">
-                                        {item.relative_time_description}
-                                    </Typography>
-                                    <Typography variant="body2" color="textSecondary" component="p">
-                                        {item.text}
-                                    </Typography>
-                                </CardContent>
-
-                            </Card>
-                        )}
+                                    </Card>
+                                )}</>
+                            : null}
 
                     </Card>
 
