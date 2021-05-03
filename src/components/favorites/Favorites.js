@@ -12,7 +12,7 @@ import { getUserLocation } from '../../stores/actions/authActionCreator'
 import { loadFavorites, addNote, deleteNote, deletePlace } from '../../stores/actions/favActionCreator'
 import { Button, Paper, Link, makeStyles, Typography } from '@material-ui/core';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import  useStyles from '../../stores/Theme.js'
+import useStyles from '../../stores/Theme.js'
 
 
 // const useStyles = makeStyles({
@@ -58,15 +58,16 @@ function Favorites(props) {
         <div>
             <div className='search-bar'>
                 <Link
+                    style={{ cursor: 'pointer' }}
                     className={classes.navLink}
                     onClick={() => history.push('/')}
                 >← Back To Search</Link>
                 <Typography variant='h8' className={classes.navTitle}>
-                FAVORITES LIST
+                    FAVORITES LIST
                 </Typography>
             </div>
 
-            
+
             <div className='map-wrapper'>
                 <FavMap
                     showFavPlaceDetail={showFavPlaceDetail}
@@ -92,7 +93,7 @@ function Favorites(props) {
                             : <div className='favList-wrapper'>
                                 {/* <h3>Favorite List</h3> */}
                                 {props.favList.length === 0
-                                    ? <p  className='empty-text'>Your favorites list is empty</p>
+                                    ? <p className='empty-text'>Your favorites list is empty</p>
                                     : props.favList.map(place =>
                                         <FavPlaceSummary
                                             setShowFavPlaceDetail={setShowFavPlaceDetail}

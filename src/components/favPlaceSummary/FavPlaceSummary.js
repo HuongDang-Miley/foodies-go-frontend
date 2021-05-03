@@ -68,7 +68,7 @@ function FavPlaceSummary(props) {
                     {` (${props.place.reviews}) ${convertPriceLevel(props.place.price_level)}`}
                 </Typography>
 
-                <Link color='secondary' variant='body2'> {props.place.website}</Link>
+                <Link style={{cursor: 'pointer'}}color='secondary' variant='body2'> {props.place.website}</Link>
 
                 <Typography variant="body1" color="textSecondary" component="p">
                     {props.place.vicinity}

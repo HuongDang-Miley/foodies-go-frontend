@@ -87,14 +87,14 @@ function PlaceDetail(props) {
 
             <div className='actions-bar'>
                 {props.showFavPlaceDetail ? <Link
-                    className={classes.blueNavLink}
+                    style={{ cursor: 'pointer' }}
                     variant='body2'
                     color='secondary'
                     onClick={() => props.setShowFavPlaceDetail(false)}
                 >{`   ← Back To Favorites`}</Link> : null}
 
                 {props.showPlaceDetail ? <Link
-                    className={classes.blueNavLink}
+                    style={{ cursor: 'pointer' }}
                     variant='body2'
                     color='secondary'
                     onClick={() => { props.togglePlaceDetail(false) }}
@@ -152,12 +152,17 @@ function PlaceDetail(props) {
                                 {`${props.placeDetail.rating} `}
                                 <img src={converRatingToStar(props.placeDetail.rating)} alt={props.placeDetail.rating} height={16} />
                                 {/* {` (${props.placeDetail.reviews.length}) ${convertPriceLevel(props.placeDetail.price_level)}`} */}
-                                {props.placeDetail.reviews ? props.placeDetail.reviews.length  : null} ${convertPriceLevel(props.placeDetail.price_level)}
+                                {props.placeDetail.reviews ? props.placeDetail.reviews.length : null} ${convertPriceLevel(props.placeDetail.price_level)}
                             </Typography>
                             <Typography variant="body1" color="textSecondary" component="p">
                                 {props.placeDetail.name}
                             </Typography>
-                            <Link color='secondary' variant='body2'> {props.placeDetail.website}</Link>
+                            <Link
+                                href={props.placeDetail.website}
+                                target="_blank"
+                                color='secondary'
+                                variant='body2'> {props.placeDetail.website}</Link>
+
                             <Typography variant="body1" color="textSecondary" component="p">
                                 {props.placeDetail.vicinity}
                             </Typography>
