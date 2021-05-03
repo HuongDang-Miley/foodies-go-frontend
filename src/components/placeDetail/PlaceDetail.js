@@ -105,7 +105,8 @@ function PlaceDetail(props) {
                 {/* {props.showPlaceDetail ? <button onClick={() => { props.togglePlaceDetail(false) }}>Back To Search Result</button> : null} */}
             </div>
             {props.placeDetail !== null
-                ? <div className='placeDetail-wrapper'>
+
+                ? <div className={props.showPlaceDetail ? 'placeDetail-wrapper' : null} >
                     <Card className={classes.card}>
 
                         <CardHeader

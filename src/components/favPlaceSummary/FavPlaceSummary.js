@@ -13,9 +13,9 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
-import { Button,  IconButton, Link, Typography } from '@material-ui/core'
+import { Button, IconButton, Link, Typography } from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete';
-import  useStyles from '../../stores/Theme.js'
+import useStyles from '../../stores/Theme.js'
 
 
 
@@ -54,9 +54,14 @@ function FavPlaceSummary(props) {
             />
 
             <CardContent
-                // onClick={() => handleShowPlaceDetail(props.place.place_id)}
+
                 onMouseEnter={() => props.mouseEnter(props.place)}
             >
+                <Button variant="outlined" style={{ marginBottom: 8 }}
+                    onClick={() => handleShowPlaceDetail(props.place.place_id)}
+                >
+                    See Detail
+                </Button>
                 <Typography variant="body1" color="textSecondary" component="p">
                     {`${props.place.rating} `}
                     <img src={converRatingToStar(props.place.rating)} alt={props.place.rating} height={16} />
@@ -78,7 +83,7 @@ function FavPlaceSummary(props) {
 
 
             <CardActions>
-                <Button variant="outlined"
+                <Button variant="outlined" style={{ marginBottom: 8 }}
                     onClick={() => setOpenAddNoteModal(true)}
                 >
                     {props.place.note === null ? "Add Note" : "Edit Note"}
@@ -86,7 +91,8 @@ function FavPlaceSummary(props) {
 
                 {props.place.note === null
                     ? null
-                    : <Button onClick={() => props.deleteNote(props.favList, props.userId, props.place.place_id)}>Delete Note</Button>}
+                    : <Button style={{ marginBottom: 8 }} onClick={() => props.deleteNote(props.favList, props.userId, props.place.place_id)}>Delete Note</Button>}
+
 
             </CardActions>
             {/* {props.disableDeleteModal
@@ -130,7 +136,7 @@ function FavPlaceSummary(props) {
                     favList={props.favList}
                 /> : null}
         </Card>
-         
+
     )
 }
 
