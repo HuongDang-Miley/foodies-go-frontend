@@ -113,7 +113,7 @@ const Login = (props) => {
                     <Link
                         color='secondary'
                         onClick={() => history.push('/')}
-                    >Back to search</Link>
+                    >← Back to search</Link>
 
 
                 </div>}

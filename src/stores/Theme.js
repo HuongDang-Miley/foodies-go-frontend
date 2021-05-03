@@ -29,6 +29,23 @@ const useStyles = makeStyles({
 
     successText: {
         color: green
+    },
+
+    // For sidebar topnav in Favorites, DirectionMap and HomePage Component
+    navLink: {
+        marginLeft: 16,
+        color: 'white'
+    },
+
+    // Button for Direction Map
+    directionsBtn: {
+        marginTop: 16,
+        marginRight: 16,
+    },
+
+    autoCompleteInput: {
+        width: 400,
+        height: 48
     }
 })
 

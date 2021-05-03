@@ -6,19 +6,20 @@ import { getUserLocation } from '../../stores/actions/authActionCreator'
 import { togglePlaceDetail } from '../../stores/actions/searchActionCreator'
 
 // MUI ELEMENTS
-import { Paper, Button, TextField, createMuiTheme, ThemeProvider, Drawer, Typography, AppBar, Toolbar, Menu, MenuItem } from '@material-ui/core'
+import { Paper, Button, TextField, createMuiTheme, ThemeProvider, Drawer, Typography, AppBar, Toolbar, Menu, MenuItem, IconButton } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 
 
 const useStyles = makeStyles({
-    iconButton: {
-        color: 'ffffff'
-    },
     menuButton: {
-        marginLeft: 16,
+        marginTop: 4,
         marginRight: 16,
-        borderRadius: 100
+    },
+
+    menu: {
+        position: 'fixed',
+        right: 0,
     }
 })
 
@@ -86,19 +87,30 @@ function MenuBar(props) {
 
 
     return (
-        <>
-            {/* <div style={{ backgroundColor: 'white' }}> */}
+        <div className={classes.menu}>
+            <IconButton
+                onClick={() => handleClickFavorites()}
+                // onClick={() => console.log('lclick')}
+                color='primary'
+                className={classes.menuButton}
+            >
+                <FavoriteIcon />
+            </IconButton>
 
-                <Button color='primary' className={classes.menuButton}
-                    onClick={() => handleClickFavorites()}
-                ><FavoriteIcon />
-                </Button>
 
-                {isAuth
-                    ? <Button variant ='contained' onClick={() => logOut()}>Logout</Button>
-                    : <Button variant ='contained' onClick={() => history.push('/login')}>Login</Button>}
-            
-        </>
+            {isAuth
+                ? <Button
+                    variant='contained'
+                    className={classes.menuButton}
+                    onClick={() => logOut()}
+                >Logout</Button>
+                : <Button
+                    className={classes.menuButton}
+                    variant='contained'
+                    onClick={() => history.push('/login')}
+                >Login</Button>}
+
+        </div>
     )
 }
 
