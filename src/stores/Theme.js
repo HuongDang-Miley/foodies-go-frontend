@@ -58,11 +58,29 @@ const useStyles = makeStyles({
         height: 48
     },
 
-    // Place Detail
-    blueNavLink: {
-        // color: 'secondary',
-        marginLef: 16
-    },
+    // // Place Detail
+    // blueNavLink: {
+    //     // color: 'secondary',
+    //     marginLef: 16
+    // },
+// For Modal Components
+
+closeBtn: {
+    float: 'right'
+},
+
+modal: {
+    marginTop: 100,
+    padding: 24,
+    margin: '0 auto',
+    width: '30%',
+},
+
+modalBtn: {
+    marginLeft: 16,
+    marginTop: 16,
+},
+
 })
 
 export default useStyles
