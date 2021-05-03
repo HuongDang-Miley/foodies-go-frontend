@@ -6,11 +6,10 @@
 }
 
 .sidebar-wrapper {
-    max-width: 450px;
+    width: 450px;
     position: absolute;
     top: 0;
     left: 0;
-
 }
 
 .map-wrapper {

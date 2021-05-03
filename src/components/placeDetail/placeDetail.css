@@ -1,17 +1,18 @@
 .placeDetail-wrapper {
     background-color: white;
     position: absolute;
-    top: 90px;
-    width: 500px;
+    top: 100px;
+    width: 450px;
     height: 100vh;
     overflow: scroll;
 }
 
 .actions-bar {
+    padding-top: 8px;
+    padding-bottom: 8px;
     background-color: white;
-    padding: 4px 16px 4px 16px;
     position: fixed;
     top: 48px;
-    width: 500px;
+    width: 450px;
     z-index: 2;
 }

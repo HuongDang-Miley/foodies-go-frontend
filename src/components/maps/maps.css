@@ -27,14 +27,6 @@
     text-align: center;
 }
 
-.placeDetail-wrapper {
-    background-color: white;
-    position: absolute;
-    top: 90px;
-    width: 500px;
-    height: 100vh;
-    overflow: scroll;
-}
 
 /* .autocomplete-input-wrapper {
     background-color: lightgrey;

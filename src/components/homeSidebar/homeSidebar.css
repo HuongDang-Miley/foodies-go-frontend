@@ -16,18 +16,19 @@
 
 .filters-bar {
     background-color: white;
-    padding: 16px;
+    padding-top: 16px;
+    padding-bottom: 16px;
     position: fixed;
     top: 48px;
-    width: 500px;
+    width: 450px;
     z-index: 2;
 }
 
 .placelist-wrapper {
-    background-color: white;
+    /* background-color: white; */
     position: absolute;
-    top: 90px;
-    width: 500px;
+    top: 101px;
+    width: 450px;
     height: 100vh;
     overflow: scroll;
     /* z-index: 3; */

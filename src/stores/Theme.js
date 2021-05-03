@@ -5,7 +5,8 @@ const useStyles = makeStyles({
 
     // for FavPlaceSummary Component
     card: {
-        marginBottom: 2
+        marginBottom: 1,
+        width: 450
     },
 
     // for Login and Register Component
