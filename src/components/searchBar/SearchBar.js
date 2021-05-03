@@ -26,11 +26,12 @@ function SearchBar(props) {
 
     return (
         <form onSubmit={handleSearch} className='search-wrapper'>
-                <input
-                    className='search-input'
-                    ref={searchRef}
-                    placeholder='Search Place'>
-                </input>
+            {/* <img src='foodies-go-small-logo.svg' alt='logo' style={{margin: 8}}/> */}
+            <input
+                className='search-input'
+                ref={searchRef}
+                placeholder='Search Place'>
+            </input>
             {/* <TextField
                 value={keyWord}
                 className={classes.field}
