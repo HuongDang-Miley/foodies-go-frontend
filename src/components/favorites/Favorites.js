@@ -10,7 +10,7 @@ import LoginModal from '../modal/LoginModal'
 import FavPlaceSummary from '../favPlaceSummary/FavPlaceSummary'
 import { getUserLocation } from '../../stores/actions/authActionCreator'
 import { loadFavorites, addNote, deleteNote, deletePlace } from '../../stores/actions/favActionCreator'
-import { Button, Paper, Link, makeStyles } from '@material-ui/core';
+import { Button, Paper, Link, makeStyles, Typography } from '@material-ui/core';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import  useStyles from '../../stores/Theme.js'
 
@@ -61,6 +61,9 @@ function Favorites(props) {
                     className={classes.navLink}
                     onClick={() => history.push('/')}
                 >← Back To Search</Link>
+                <Typography variant='h8' className={classes.navTitle}>
+                FAVORITES LIST
+                </Typography>
             </div>
 
             
@@ -86,8 +89,8 @@ function Favorites(props) {
                                     setShowFavPlaceDetail={setShowFavPlaceDetail}
                                 />
                             </div>
-                            : <div>
-                                <h3>Favorite List</h3>
+                            : <div className='favList-wrapper'>
+                                {/* <h3>Favorite List</h3> */}
                                 {props.favList.length === 0
                                     ? 'Your favorites list is empty'
                                     : props.favList.map(place =>

@@ -34,8 +34,17 @@ const useStyles = makeStyles({
 
     // For sidebar topnav in Favorites, DirectionMap and HomePage Component
     navLink: {
+        lineHeight: 3,
         marginLeft: 16,
         color: 'white'
+    },
+
+    navTitle: {
+        float: 'right',
+        marginRight: 16,
+        lineHeight: 3,
+        color: 'white'
+
     },
 
     // Button for Direction Map
@@ -52,7 +61,7 @@ const useStyles = makeStyles({
     // Place Detail
     blueNavLink: {
         // color: 'secondary',
-        marginLef:16
+        marginLef: 16
     },
 })
 
