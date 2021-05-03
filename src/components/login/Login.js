@@ -3,13 +3,10 @@ import { Redirect, useHistory } from 'react-router-dom'
 import { login, handleErrorMessage } from '../../stores/actions/authActionCreator'
 import { connect } from "react-redux";
 import { Button, TextField, Link, Container, Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles';
 import  useStyles from '../../stores/Theme.js'
 
 
-
 const Login = (props) => {
-
     const classes = useStyles()
     let history = useHistory();
     let [isAuth, setIsAuth] = useState(false)

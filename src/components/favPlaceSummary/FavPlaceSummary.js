@@ -19,15 +19,10 @@ import { converRatingToStar, convertPriceLevel, upperCaseFirstChar } from '../..
 
 import  useStyles from '../../stores/Theme.js'
 
-// const useStyle = makeStyles({
-//     card: {
-//         marginBottom: 2
-//     }
-// })
+
 
 function FavPlaceSummary(props) {
     const classes = useStyles()
-
 
     let [openAddNoteModal, setOpenAddNoteModal] = useState(false)
     let [openDeleteModal, setOpenDeleteModal] = useState(false)

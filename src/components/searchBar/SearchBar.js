@@ -27,5 +27,8 @@ function SearchBar(props) {
     )
 }
 
-const mapStateToProps = (state) => { return state}
+const mapStateToProps = (state) => { 
+    return {
+        userLatLng: state.authReducer.userLatLng,
+    }}
 export default connect(mapStateToProps, { getNearbySearch, togglePlaceDetail, getSearchWord })(SearchBar)
