@@ -13,6 +13,7 @@ function HomePage(props) {
         <div>
             <div className='map-wrapper'><HomeMap /></div>
             <div className='sidebar-wrapper'>
+            {/* <div > */}
                 {props.showPlaceDetail
                     ? <PlaceDetail />
                     : <HomeSidebar />

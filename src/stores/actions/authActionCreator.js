@@ -1,5 +1,6 @@
 import Axios from './Axios.js'
 import axios from 'axios'
+import jwtDecode from 'jwt-decode';
 let key = process.env.REACT_APP_GEOLOCATION_DB_KEY
 
 //=============================================================================================
@@ -41,7 +42,14 @@ export const login = (email, password) => async dispatch => {
         if (response.data.status === 404 || response.data.status === 409) {
             return dispatch({ type: 'HANDLE_ERROR_MESSAGE', loginErrorMessage: response.data.message })
         } else {
+            let decodeToken = jwtDecode(response.data.token)
+            console.log('decodeToken', decodeToken)
+            const user = {
+                username: decodeToken.username,
+                email: decodeToken.email
+            }
             localStorage.setItem('userToken', response.data.token)
+            return dispatch({ type: 'LOGIN', user: user })
         }
 
     } catch (error) { throw (error) }

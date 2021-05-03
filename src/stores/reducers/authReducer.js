@@ -25,6 +25,13 @@ const authReducer = (state = initialState, action) => {
                 userLatLng: action.userLatLng
             }
 
+        case 'LOGIN':
+            console.log(action)
+            return {
+                ...state,
+                user: action.user
+            }
+
         case 'REGISTER':
             console.log(action)
             return {

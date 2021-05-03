@@ -2,158 +2,93 @@ import React, { useRef, useEffect, useState } from 'react'
 import { Link, Redirect, useHistory } from 'react-router-dom'
 import { login, handleErrorMessage } from '../../stores/actions/authActionCreator'
 import { connect } from "react-redux";
-import { Paper, Button, TextField, createMuiTheme, ThemeProvider } from '@material-ui/core'
+
+// MUI ELEMENTS
+import { Paper, Button, TextField, createMuiTheme, ThemeProvider, Drawer, Typography, AppBar, Toolbar, Menu, MenuItem } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import { red } from '@material-ui/core/colors'
+import HomeMap from '../maps/HomeMap';
 
-const theme = createMuiTheme({
-    palette: {
-        primary: { main: red[700] }
+const useStyle = makeStyles({
+    drawer: {
+        width: 400
+    },
+    drawerCard: {
+        width: 400
+    },
+
+    appBar: {
+        width: 100
     }
+
 })
-
-const useStyles = makeStyles({
-    field: {
-        marginTop: 16,
-        marginBottom: 16,
-        display: 'block'
-    }
-})
-
-
 const Test = (props) => {
-    const classes = useStyles()
 
-    // console.log('props in login', props)
-    let emailRef = useRef()
-    let passwordRef = useRef()
-    let [email, setEmail] = useState('')
-    let [password, setPassword] = useState('')
+    console.log('props in Test', props)
+    const classes = useStyle()
 
-    //=================================================================================
-    // Check if there is a token. If yes, page redirect to home
-    //=================================================================================
-    let history = useHistory();
-    let [isAuth, setIsAuth] = useState(false)
+    const [anchorEl, setAnchorEl] = React.useState(null);
 
-
-    useEffect(() => {
-        let userToken = localStorage.getItem('userToken')
-        if (userToken) {
-            setIsAuth(true)
-        } else {
-            setIsAuth(false)
-        }
-    }, [])
-
-    //=================================================================================
-    // When click login, if token is retrieved, redirect home and set errorMessage to null
-    //=================================================================================
-
-
-    // const handleSubmit = (e) => {
-    //     e.preventDefault()
-
-    // }
-    const [title, setTitle] = useState('')
-    const [details, setDetails] = useState('')
-    const [titleError, setTitleError] = useState(false)
-    const [detailsError, setDetailsError] = useState(false)
-
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        setTitleError(false)
-        setDetailsError(false)
-
-        if (title == '') {
-            setTitleError(true)
-        }
-        if (details == '') {
-            setDetailsError(true)
-        }
-        if (title && details) {
-            console.log(title, details)
-        }
-    }
-
+    const handleClick = (event) => {
+      setAnchorEl(event.currentTarget);
+    };
+  
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
 
     return (
-        <ThemeProvider theme={theme}>
-            <>
+        <>
 
-                <Link to='/'>{`<- Go Home`}</Link>
-                {isAuth ? <Redirect to='/' />
-                    : <div>
-                        <div>This is LOGIN page</div>
-                        <p>props.errorMessage: {props.errorMessage}</p>
 
-                        {/* < form noValidate autoComplete='off' onSubmit={handleSubmit} >
-                            <TextField
-                                onChange={(e) => setEmail(e.target.value)}
-                                type='email'
-                                className={classes.field}
-                                label='Email'
-                                variant='outlined'
-                                fullWidth
-                                required />
+            {/* <div><HomeMap /></div> */}
+            <div> Testing</div>
+            <Paper>
 
-                            <TextField
-                                onChange={(e) => setPassword(e.target.value)}
-                                type='password'
-                                className={classes.field}
-                                label='Password'
-                                variant='outlined'
-                                fullWidth
-                                required />
+                this is a paper
+            </Paper>
+            {/* <Drawer
+                className={classes.drawer}
+                variant='permanent'
+                anchor='left'
+                classes={{ paper: classes.drawerCard }}
+            > */}
+            {/* <AppBar className='classes.appBar'>
+                    <Toolbar>
+                        <Typography> This is The App</Typography>
+                    </Toolbar>
+                </AppBar> */}
+            {/* <div>
+                    <Typography variant='h5'>Test Drawer</Typography>
+                </div>
+            </Drawer> */}
 
-                            <Button color='primary' variant='contained'>LOGIN</Button>
+            <div>
+                <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+                    Open Menu
+      </Button>
+                <Menu
+                    id="simple-menu"
+                    anchorEl={anchorEl}
+                    keepMounted
+                    open={Boolean(anchorEl)}
+                    onClose={handleClose}
+                >
+                    <MenuItem onClick={handleClose}>{props.user.name}</MenuItem>
+                    <MenuItem onClick={handleClose}>My account</MenuItem>
+                    <MenuItem onClick={handleClose}>Logout</MenuItem>
+                </Menu>
+            </div>
+        </>
 
-                        </form > */}
-                        <form noValidate autoComplete="off" onSubmit={handleSubmit}>
-                            <TextField className={classes.field}
-                                type='email'
-                                onChange={(e) => setTitle(e.target.value)}
-                                label="Note Title"
-                                variant="outlined"
-                                color="secondary"
-                                fullWidth
-                                required
-                                error={titleError}
-                            />
-                            <TextField className={classes.field}
-                                type="password"
-                                autoComplete="current-password"
-                                onChange={(e) => setDetails(e.target.value)}
-                                label="password"
-                                variant="outlined"
-                                color="secondary"
-                                fullWidth
-                                required
-                                error={detailsError}
-                            />
-
-                            <Button
-                                type="submit"
-                                color="secondary"
-                                variant="contained"
-                            // endIcon={<KeyboardArrowRightIcon />}
-                            >
-                                Submit
-        </Button>
-                        </form>
-                        <Link to='/register'>Don't Have An Account? Register Here</Link>
-
-                    </div>}
-
-            </>
-        </ThemeProvider>
     )
 }
 
 
 const mapStateToProps = (state) => {
     return {
-        errorMessage: state.authReducer.errorMessage
+        errorMessage: state.authReducer.errorMessage,
+        user: state.authReducer.user
     }
 }
 export default connect(mapStateToProps, { login, handleErrorMessage })(Test);
