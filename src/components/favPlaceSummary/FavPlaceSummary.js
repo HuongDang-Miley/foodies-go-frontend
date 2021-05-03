@@ -6,17 +6,15 @@ import DeleteModal from '../modal/DeleteModal'
 import { AddToFavorites } from '../../stores/actions/favActionCreator'
 import { getPlaceDetail, togglePlaceDetail } from '../../stores/actions/searchActionCreator'
 import { mouseEnter } from '../../stores/actions/mapActionCreator'
-
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import { Button, CardActionArea, IconButton, Link, makeStyles, Typography } from '@material-ui/core'
-import DeleteIcon from '@material-ui/icons/Delete';
-import { green } from '@material-ui/core/colors'
 import { converRatingToStar, convertPriceLevel, upperCaseFirstChar } from '../../stores/actions/displayActionsCreator'
 
+// MUI elements
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
+import { Button,  IconButton, Link, Typography } from '@material-ui/core'
+import DeleteIcon from '@material-ui/icons/Delete';
 import  useStyles from '../../stores/Theme.js'
 
 
