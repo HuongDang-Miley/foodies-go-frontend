@@ -1,6 +1,8 @@
 const initialState = {
     isAuth: false,
     registerMessage: "",
+    successRegisterMessage: "",
+    errorRegisterMessage: "",
     errorMessage: "",
     user: {},
     userLocation: null,
@@ -24,10 +26,13 @@ const authReducer = (state = initialState, action) => {
                 userLatLng: action.userLatLng
             }
 
-        case 'REGISTER': 
+        case 'REGISTER':
+            console.log(action)
             return {
                 ...state,
-                registerMessage: action.registerMessage
+                registerMessage: action.registerMessage,
+                successRegisterMessage: action.successRegisterMessage,
+                errorRegisterMessage: action.errorRegisterMessage,
             }
 
 

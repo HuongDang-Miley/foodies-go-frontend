@@ -13,6 +13,7 @@ export const register = (username, email, password) => async dispatch => {
         return dispatch({
             type: 'REGISTER',
             registerMessage: newUser.data.message,
+            successRegisterMessage: newUser.data.message,
         })
 
 
@@ -20,7 +21,8 @@ export const register = (username, email, password) => async dispatch => {
         if (error.response.status === 409) {
             return dispatch({
                 type: 'REGISTER',
-                registerMessage: 'Email already exist. Try again or Login',
+                registerMessage: 'Email already exist. Try again or ',
+                errorRegisterMessage: 'Email already exist. Try again or '
             })
         }
         throw (error)

@@ -18,7 +18,6 @@ export const theme = createMuiTheme({
 })
 
 
-
 export default function App() {
   return (
     <ThemeProvider theme={theme}>

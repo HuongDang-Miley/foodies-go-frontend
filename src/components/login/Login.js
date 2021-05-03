@@ -45,9 +45,9 @@ const Login = (props) => {
     const [emailError, setEmailError] = useState(false)
     const [passwordError, setPasswordError] = useState(false)
 
-    //=================================================================================
-    // Check if there is a token. If yes, page redirect to home
-    //=================================================================================
+//=================================================================================
+// Check if there is a token. If yes, page redirect to home
+//=================================================================================
 
     useEffect(() => {
         let userToken = localStorage.getItem('userToken')
@@ -58,9 +58,9 @@ const Login = (props) => {
         }
     }, [])
 
-    //=================================================================================
-    // When click login, if token is retrieved, redirect home and set errorMessage to null
-    //=================================================================================
+//=================================================================================
+// When click login, if token is retrieved, redirect home and set errorMessage to null
+//=================================================================================
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -87,65 +87,65 @@ const Login = (props) => {
             setIsAuth(false)
         }
     }
+
     return (
-                <Container maxWidth="sm" className={classes.container}>
+        <Container maxWidth="sm" className={classes.container}>
+            {isAuth ? <Redirect to='/' />
+                : <div>
+                    <img src="foodies-go-big-logo.svg" alt="logo" style={{ marginTop: 16, textAlign: 'left' }}></img>
+                    <p>{props.errorMessage}</p>
 
-                    {isAuth ? <Redirect to='/' />
-                        : <div>
-                            <img src="foodies-go-big-logo.svg" alt="logo" style={{ marginTop: 16, textAlign: 'left' }}></img>
-                            <p>{props.errorMessage}</p>
+                    <form noValidate autoComplete="off" onSubmit={handleSubmit}>
+                        <TextField className={classes.field}
+                            type='email'
+                            onChange={(e) => setEmail(e.target.value)}
+                            label="Email"
+                            variant="outlined"
+                            fullWidth
+                            required
+                            error={emailError}
+                        />
+                        <TextField className={classes.field}
+                            type="password"
+                            autoComplete="current-password"
+                            onChange={(e) => setPassword(e.target.value)}
+                            label="Password"
+                            variant="outlined"
+                            fullWidth
+                            required
+                            error={passwordError}
+                        />
 
-                            <form noValidate autoComplete="off" onSubmit={handleSubmit}>
-                                <TextField className={classes.field}
-                                    type='email'
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    label="Email"
-                                    variant="outlined"
-                                    fullWidth
-                                    required
-                                    error={emailError}
-                                />
-                                <TextField className={classes.field}
-                                    type="password"
-                                    autoComplete="current-password"
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    label="Password"
-                                    variant="outlined"
-                                    fullWidth
-                                    required
-                                    error={passwordError}
-                                />
-
-                                <Button
-                                    className={classes.button}
-                                    type="submit"
-                                    color="primary"
-                                    variant="contained"
-                                    fullWidth
-                                >Login</Button>
-                            </form>
+                        <Button
+                            className={classes.button}
+                            type="submit"
+                            color="primary"
+                            variant="contained"
+                            fullWidth
+                        >Login</Button>
+                    </form>
 
 
-                            <Typography className={classes.typography}>
-                                {`Don't Have An Account? `}
-                                <Link
-                                    color='secondary'
-                                    onClick={() => history.push('/register')}
-                                >
-                                    Register Here
+                    <Typography className={classes.typography}>
+                        {`Don't Have An Account? `}
+                        <Link
+                            color='secondary'
+                            onClick={() => history.push('/register')}
+                        >
+                            Register Here
                             </Link>
-                            </Typography>
+                    </Typography>
 
 
-                            <Link
-                                color='secondary'
-                                onClick={() => history.push('/')}
-                            >Back to search</Link>
+                    <Link
+                        color='secondary'
+                        onClick={() => history.push('/')}
+                    >Back to search</Link>
 
 
-                        </div>}
+                </div>}
 
-                </Container>
+        </Container>
     )
 }
 
