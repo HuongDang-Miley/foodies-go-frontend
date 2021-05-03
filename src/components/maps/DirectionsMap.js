@@ -31,7 +31,8 @@ const DirectionsMap = (props) => {
 
     const [startPoint, setStartPoint] = useState({ lat: null, lng: null })
     const [endPoint, setEndPoint] = useState({ lat: null, lng: null })
-    const [travelMode, setTravelMode] = useState("DRIVING")
+    // const [travelMode, setTravelMode] = useState("DRIVING")
+    const [travelMode, setTravelMode] = useState(null)
     const [loadDirection, setLoadDirection] = useState(false)
 
 
