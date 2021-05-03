@@ -77,14 +77,6 @@ function MenuBar(props) {
 
     const [anchorEl, setAnchorEl] = React.useState(null);
 
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
-
 
     return (
         <div className={classes.menu}>
