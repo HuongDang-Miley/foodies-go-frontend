@@ -152,7 +152,7 @@ function PlaceDetail(props) {
                                 {`${props.placeDetail.rating} `}
                                 <img src={converRatingToStar(props.placeDetail.rating)} alt={props.placeDetail.rating} height={16} />
                                 {/* {` (${props.placeDetail.reviews.length}) ${convertPriceLevel(props.placeDetail.price_level)}`} */}
-                                {props.placeDetail.reviews ? props.placeDetail.reviews.length  : null} ${convertPriceLevel(props.placeDetail.price_level)}`
+                                {props.placeDetail.reviews ? props.placeDetail.reviews.length  : null} ${convertPriceLevel(props.placeDetail.price_level)}
                             </Typography>
                             <Typography variant="body1" color="textSecondary" component="p">
                                 {props.placeDetail.name}
