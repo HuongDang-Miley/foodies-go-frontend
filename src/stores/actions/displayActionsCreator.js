@@ -26,6 +26,7 @@ export const converRatingToStar = (num) => {
     if (num === 5) {
         return 'stars/5-stars.svg'
     }
+    return 'stars/0-star.svg'
 }
 
 export const convertPriceLevel = (num) => {
