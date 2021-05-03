@@ -5,10 +5,20 @@
     right: 0;
 }
 
-.map-wrapper {
-}
 
 .favList-wrapper {
     position: absolute;
     top: 49px;
+}
+
+.empty-text{
+    position: absolute;
+    width: 434px; 
+    background-color: white;
+    padding-left: 16px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    margin: 0px;
+   
+    
 }

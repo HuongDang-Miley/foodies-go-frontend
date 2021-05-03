@@ -92,7 +92,7 @@ function Favorites(props) {
                             : <div className='favList-wrapper'>
                                 {/* <h3>Favorite List</h3> */}
                                 {props.favList.length === 0
-                                    ? 'Your favorites list is empty'
+                                    ? <p  className='empty-text'>Your favorites list is empty</p>
                                     : props.favList.map(place =>
                                         <FavPlaceSummary
                                             setShowFavPlaceDetail={setShowFavPlaceDetail}
