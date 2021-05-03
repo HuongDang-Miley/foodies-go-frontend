@@ -34,6 +34,7 @@ const useStyles = makeStyles({
 
     // For sidebar topnav in Favorites, DirectionMap and HomePage Component
     navLink: {
+        cursor: 'pointer',
         lineHeight: 3,
         marginLeft: 16,
         color: 'white'
