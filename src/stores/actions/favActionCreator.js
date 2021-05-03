@@ -5,6 +5,14 @@ import Axios from './Axios.js'
 export const AddToFavorites = (userId, place) => async dispatch => {
     console.log('place', place)
 
+    let reviews = ''
+
+    if (!place.reviews) {
+        reviews = ''
+    } else {
+        reviews = place.reviews.length
+    }
+
     let addPlace = {
         formatted_phone_number: place.formatted_phone_number,
         geometry: place.geometry,
@@ -16,7 +24,8 @@ export const AddToFavorites = (userId, place) => async dispatch => {
         url: place.url,
         vicinity: place.vicinity,
         website: place.website,
-        reviews:  place.reviews.length,
+        // reviews:  place.reviews.length,
+        reviews: reviews,
         note: null
     }
 
@@ -32,7 +41,7 @@ export const AddToFavorites = (userId, place) => async dispatch => {
 
 
 export const loadFavorites = (id) => async dispatch => {
-    
+
     let response = await Axios.get('/favorites/loadFavorites', { params: { userId: id } })
     console.log('response in fvaction Creator', response.data)
 
@@ -93,7 +102,7 @@ export const deleteNote = (favList, userId, placeId) => async dispatch => {
 //===================================================================================================================
 
 export const deletePlace = (favList, userId, placeId) => async dispatch => {
-    
+
 
     await Axios.delete('/favorites/deletePlace', {
         params: {
